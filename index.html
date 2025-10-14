@@ -14,10 +14,25 @@
         background-color: #ffffff;
       }
 
+      /* ====== HEADER ====== */
       header {
         background-color: #f8f9fa;
-        padding: 2rem 0;
-        text-align: center;
+        padding: 3rem 0;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .header-content {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .profile-img {
+        width: 200px;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 4px solid #e0e0e0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       }
 
       header h1 {
@@ -29,6 +44,7 @@
       header p {
         color: #555;
         font-size: 1.1rem;
+        line-height: 1.6;
       }
 
       /* ====== Profile Links ====== */
@@ -52,6 +68,12 @@
       }
 
       /* ====== Research Panels ====== */
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
       .research-section {
         padding: 0 0 60px 0;
       }
@@ -62,28 +84,50 @@
         box-shadow: 0 2px 8px rgba(0,0,0,0.08);
         margin-bottom: 50px;
         padding: 40px 20px;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: all 0.6s ease;
+      }
+
+      .research-panel.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* Alternating gradient backgrounds */
+      .research-panel:nth-child(odd) {
+        background: linear-gradient(135deg, #f9fafb 0%, #f1f3f5 100%);
       }
 
       .research-panel:nth-child(even) {
-        background-color: #ffffff;
-      }
-
-      .research-panel:nth-child(odd) {
-        background-color: #f3f4f6;
+        background: linear-gradient(135deg, #ffffff 0%, #f7f8fa 100%);
       }
 
       .research-panel .row {
         align-items: center;
       }
 
-      .research-panel img {
+      /* Two stacked images */
+      .image-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .image-stack img {
         width: 100%;
-        border-radius: 50%;
+        max-width: 280px;
+        height: 200px;
         object-fit: cover;
-        max-width: 300px;
-        max-height: 300px;
-        margin: 0 auto;
-        display: block;
+        border-radius: 8px;
+        border: 3px solid #e0e0e0;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        transition: transform 0.25s ease;
+      }
+
+      .image-stack img:hover {
+        transform: scale(1.04);
       }
 
       .research-text {
@@ -94,6 +138,17 @@
         font-size: 1.8rem;
         font-weight: 600;
         margin-bottom: 15px;
+        position: relative;
+      }
+
+      .research-text h2::after {
+        content: "";
+        display: block;
+        width: 60px;
+        height: 4px;
+        background-color: #007bff;
+        margin-top: 8px;
+        border-radius: 2px;
       }
 
       .research-text p {
@@ -111,12 +166,18 @@
       }
 
       @media (max-width: 768px) {
+        header {
+          text-align: center;
+        }
+        .profile-img {
+          margin-bottom: 1.5rem;
+        }
         .research-panel {
           text-align: center;
         }
-        .research-panel img {
-          max-width: 200px;
-          max-height: 200px;
+        .image-stack img {
+          max-width: 240px;
+          height: 180px;
         }
       }
     </style>
@@ -126,15 +187,26 @@
 
     <!-- ====== HEADER ====== -->
     <header>
-      <h1>Alex Van Nynatten</h1>
-      <p>My research integrates functional genomics and molecular ecology to uncover how genetic and protein-level variation drives species’ adaptive responses to environmental change. Using systems ranging from Canadian freshwater fishes to Pacific corals, I link molecular function to ecological resilience across gradients of light, temperature, and human disturbance.</p>
+      <div class="container header-content">
+        <div class="row align-items-center">
+          <div class="col-md-4 text-center mb-3 mb-md-0">
+            <img src="images/profile.jpg" alt="Alex Van Nynatten" class="profile-img">
+          </div>
+          <div class="col-md-8">
+            <h1>Alex Van Nynatten</h1>
+            <p>
+              My research integrates functional genomics and molecular ecology to uncover how genetic and protein-level variation drives species’ adaptive responses to environmental change. Using systems ranging from Canadian freshwater fishes to Pacific corals, I link molecular function to ecological resilience across gradients of light, temperature, and human disturbance.
+            </p>
+          </div>
+        </div>
+      </div>
     </header>
 
     <!-- ====== PROFILE LINKS ====== -->
     <div class="profile-links">
       <a href="https://github.com/alexvannynatten" target="_blank">GitHub</a>
       <a href="https://scholar.google.com/citations?user=_p_qt40AAAAJ&hl=en" target="_blank">Google Scholar</a>
-      <a href="https://github.com/alexvannynatten/alexvannynatten.github.io/blob/9b3e2fda304d7bd91a73492fd45af1618adbb6ec/VanNynatten_202510_CV.pdf" target="_blank">CV (PDF)</a>
+      <a href="files/VanNynatten_202510_CV.pdf" target="_blank">CV (PDF)</a>
     </div>
 
     <!-- ====== MAIN CONTENT ====== -->
@@ -144,41 +216,47 @@
       <div class="research-panel">
         <div class="row">
           <div class="col-md-5 text-center">
-            <img src="https://github.com/alexvannynatten/alexvannynatten.github.io/blob/9c86ed88b58b70b174964be21a92f6130827e551/AVN_MBEcov_20240420.png" alt="Adaptive Genomics">
+            <div class="image-stack">
+              <img src="https://github.com/alexvannynatten/alexvannynatten.github.io/blob/b633c895407e314aeddac818c43d77af9a62e325/AVN_MBEcov_20240420.png" alt="MolBiolEvol cover img">
+              <img src="images/adaptive_genomics2.jpg" alt="Adaptive Genomics 2">
+            </div>
           </div>
           <div class="col-md-7 research-text">
             <h2>Functional Genomics</h2>
             <p>
-              Ecosystem responses to environmental change depend on molecular processes that shape species’ resilience. My research integrates genomics with experimental assays to uncover how environmental differences drive protein evolution. Using visual pigment proteins in fishes as a model system, I have shown how specific amino acid substitutions modulate spectral sensitivity, tuning visual pigments to the spectral conditions of marine and freshwater habitats and maintaining functionally relevant intraspecific genetic variation along depth gradients in Canadian fishes. I have also expanded these approaches to assist with deep mutational scans of visual pigments and functional characterization of other proteins, including arrestins, sodium channels, and CRISPR-associated proteins providing mechanistic insight into the molecular basis of adaptation. 
-      </p>
-      <ul class="list-unstyled mt-3">
-        <li>📄 <a href="https://academic.oup.com/mbe/article/38/5/2076/6108109" target="_blank">Functional adaptation to freshwater habitats</a></li>
-        <li>📄 <a href="https://www.cell.com/current-biology/fulltext/S0960-9822(23)01231-9" target="_blank">Arrestin adaptation in dim-light species</a></li>
-        <li>🗞️ <a href="https://canadiangeographic.ca/articles/unravelling-the-genetic-secrets-of-an-ice-age-relic/" target="_blank">Deepwater sculpin genome</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+              Ecosystem responses to environmental change depend on molecular processes that shape species’ resilience. My research integrates genomics with experimental assays to uncover how environmental differences drive protein evolution. Using visual pigment proteins in fishes as a model system, I have shown how specific amino acid substitutions modulate spectral sensitivity, tuning visual pigments to the spectral conditions of marine and freshwater habitats and maintaining functionally relevant intraspecific genetic variation along depth gradients in Canadian fishes. I have also expanded these approaches to assist with deep mutational scans of visual pigments and functional characterization of other proteins, including arrestins, sodium channels, and CRISPR-associated proteins providing mechanistic insight into the molecular basis of adaptation.
+            </p>
+            <ul class="list-unstyled mt-3">
+              <li>📄 <a href="https://academic.oup.com/mbe/article/38/5/2076/6108109" target="_blank">Functional adaptation to freshwater habitats</a></li>
+              <li>📄 <a href="https://www.cell.com/current-biology/fulltext/S0960-9822(23)01231-9" target="_blank">Arrestin adaptation in dim-light species</a></li>
+              <li>🗞️ <a href="https://canadiangeographic.ca/articles/unravelling-the-genetic-secrets-of-an-ice-age-relic/" target="_blank">Deepwater sculpin genome</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
       <!-- Panel 2 -->
       <div class="research-panel">
         <div class="row flex-md-row-reverse">
           <div class="col-md-5 text-center">
-            <img src="eDNA_autosampler.jpg" alt="Environmental DNA autosampler">
+            <div class="image-stack">
+              <img src="images/edna1.jpg" alt="Environmental DNA 1">
+              <img src="https://github.com/alexvannynatten/alexvannynatten.github.io/blob/b633c895407e314aeddac818c43d77af9a62e325/eDNA_autosampler.jpg" alt="Environmental DNA Autosampler">
+            </div>
           </div>
           <div class="col-md-7 research-text">
             <h2>Molecular Ecology</h2>
             <p>
               Many analyses of molecular evolution are constrained by limited or incomplete distribution data. I have developed and applied DNA metabarcoding frameworks that link environmental variation to patterns of species and functional diversity across space and time. By integrating data on species presence, reproductive habits, and trophic interactions, my work has advanced how we monitor and interpret ecological change. These approaches have been applied from sensitive freshwater fish communities in Ontario to decade-long surveys of coral reef ecosystems in the Central Pacific, providing new insight into biodiversity responses and resilience to environmental stress. By integrating this work with functional genomics, I am mapping the geographic distribution of adaptive genetic variation linked to protein function and expanding DNA metabarcoding methods to target functionally relevant genes for rapid eDNA surveys across diverse habitats and ecological gradients.
-      </p>
-      <ul class="list-unstyled mt-3">
-        <li>📄 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13803" target="_blank">Monitoring establishment of invasive species</a></li>
-        <li>📄 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/fwb.14331" target="_blank">eDNA surveys of endemic South African fishes</a></li>
-        <li>📄 <a href="https://academic.oup.com/mbe/article/41/2/msae024/7600573" target="_blank">Function-based DNA metabarcoding</a></li>
-      </ul>
-    </div>
-  </div>
-</div>
+            </p>
+            <ul class="list-unstyled mt-3">
+              <li>📄 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/1755-0998.13803" target="_blank">Monitoring establishment of invasive species</a></li>
+              <li>📄 <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/fwb.14331" target="_blank">eDNA surveys of endemic South African fishes</a></li>
+              <li>📄 <a href="https://academic.oup.com/mbe/article/41/2/msae024/7600573" target="_blank">Function-based DNA metabarcoding</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
     </main>
 
@@ -187,10 +265,16 @@
       © 2025 Alexander Van Nynatten
     </footer>
 
+    <!-- ====== SCRIPTS ====== -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const panels = document.querySelectorAll('.research-panel');
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+      }, { threshold: 0.2 });
+      panels.forEach(panel => observer.observe(panel));
+    </script>
   </body>
 </html>
-
-
-
-
